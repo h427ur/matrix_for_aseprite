@@ -1,0 +1,20 @@
+﻿{
+  "name": "matrix-for-aseprite",
+  "displayName": "Matrix for Aseprite",
+  "description": "Transpose or inverse canvas",
+  "version": "0.1",
+  "author": { 
+    "name": "h427ur",
+    "email": "h427ur@outlook.com",
+    "url": "https://gitlab.com/h427ur" 
+  },
+  "contributors": [ ],
+  "publisher": "h427ur",
+  "license": "MIT",
+  "categories": [ "Scripts" ],
+  "contributes": {
+    "scripts": [
+        { "path": "./src/main.lua" }
+    ]
+  }
+}
