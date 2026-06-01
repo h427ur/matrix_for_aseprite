@@ -1,4 +1,4 @@
-﻿function init(plugin)
+function init(plugin)
   print("Aseprite is initializing my plugin")
 
   -- we can use "plugin.preferences" as a table with fields for
