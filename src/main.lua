@@ -12,8 +12,7 @@ function init(plugin)
 
     end,
     onenabled = function()
-
-      -- return (app.sprite != nil)
+      return app.sprite ~= nil
 
     end
   }
@@ -38,11 +37,6 @@ function Matrix4Ase()
   -- 클릭 시 캔버스 사이즈 띄우기
   if data.show_size then
     local sprite = app.sprite
-
-    if sprite == nil then
-      app.alert("There's no active sprite or something else.")
-      return
-    end
 
     -- 행, 열
     local row, column = sprite.height, sprite.width
