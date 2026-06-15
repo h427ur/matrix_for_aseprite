@@ -1,4 +1,7 @@
-﻿.vscode/*
-.DS_Store
+﻿.DS_Store
+.vscode/*
+.vscode/
 .idea/*
+.idea/
 .vs/*
+.vs/
