@@ -8,7 +8,7 @@ function init(plugin)
     title="Matrix for Aseprite",
     group="edit_transform",
     onclick = function()
-      Matrix4Ase()
+      mat4ase(app.sprite)
 
     end,
     onenabled = function()
@@ -16,34 +16,41 @@ function init(plugin)
 
     end
   }
-  
+
 end
 
--- 시험 삼아 대화창 띄우기
-function Matrix4Ase()
+function mat4ase(sprite)
   local dlg =
     Dialog("Matrix for Aseprite")
-      -- 대화창 버튼1
       :button{
-        id = "show_size",
+        id = "getSize",
         text = "Show canvas size"
       }
 
-      -- 대화창 보여주기
+      :button{
+        id = "tPose",
+        text = "Transpose"
+      }
+
       :show()
 
   local data = dlg.data
 
-  -- 클릭 시 캔버스 사이즈 띄우기
-  if data.show_size then
-    local sprite = app.sprite
-
-    -- 행, 열
+  if data.getSize then
     local row, column = sprite.height, sprite.width
     local result = string.format("%d : %d", row, column)
     app.alert(result)
+  elseif data.tPose then
+    transpose(sprite)
   end
 
+end
+
+function transpose(sprite)
+  app.alert(sprite.cels)
+end
+
+function inverse()
 end
 
 function exit(plugin)

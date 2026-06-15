@@ -2,7 +2,7 @@
   "name": "matrix-for-aseprite",
   "displayName": "Matrix for Aseprite",
   "description": "Transpose or inverse canvas",
-  "version": "0.1",
+  "version": "0.1.5",
   "author": { 
     "name": "h427ur",
     "email": "h427ur@outlook.com",
