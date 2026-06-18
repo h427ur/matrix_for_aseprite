@@ -50,12 +50,16 @@ function transpose(sprite)
   --반복문으로 처리한다
   --캔버스 전체를 변수에 저장한다
   --행의 각 요소를 열의 요소로 배치한다
-  --즉 행의 각 요소를 각 행의 0번째에 배치한다.
+  --즉 행의 각 요소를 각 행의 1번째에 배치한다.
+  --  lua는 인덱스가 1부터 시작한다.
 
   --일단 디버깅용으로 출력해보기
-  local cels = sprite.cels
-  -- local layer  = sprite.layer
-  app.alert(cels[0])
+  local layers = sprite.layers
+  local randCel = layers[3].cels
+  local image = randCel[1].image
+  local pixels = image:pixels()
+
+  app.alert(string.format("%d : %d", image.height, image.width))
 end
 
 function inverse()
