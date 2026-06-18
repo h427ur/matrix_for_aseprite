@@ -49,6 +49,8 @@ fi
 sudo cp -r ../matrix_for_aseprite $TARGET_DIR
 if [ $? -eq 0 ]; then
     echo "Done!"
+    exit 0
 else
     echo "Failed, may be permission issue"
+    exit 1
 fi
