@@ -20,20 +20,20 @@ function init(plugin)
 end
 
 function mat4ase(sprite)
-  local dlg =
-    Dialog("Matrix for Aseprite")
-      :button{
-        id = "getSize",
-        text = "Show canvas size"
-      }
-
-      :button{
-        id = "tPose",
-        text = "Transpose"
-      }
-
-      :show()
-
+  local dlg = Dialog("Matrix for Aseprite")
+  
+  dlg:button{
+    id = "getSize",
+    text = "Show canvas size"
+  }
+  
+  dlg:button{
+    id = "tPose",
+    text = "Transpose"
+  }
+  
+  dlg:show()
+  
   local data = dlg.data
 
   if data.getSize then
@@ -47,7 +47,15 @@ function mat4ase(sprite)
 end
 
 function transpose(sprite)
-  app.alert(sprite.cels)
+  --반복문으로 처리한다
+  --캔버스 전체를 변수에 저장한다
+  --행의 각 요소를 열의 요소로 배치한다
+  --즉 행의 각 요소를 각 행의 0번째에 배치한다.
+
+  --일단 디버깅용으로 출력해보기
+  local cels = sprite.cels
+  -- local layer  = sprite.layer
+  app.alert(cels[0])
 end
 
 function inverse()
