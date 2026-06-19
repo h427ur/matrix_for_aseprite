@@ -55,11 +55,31 @@ function transpose(sprite)
 
   --일단 디버깅용으로 출력해보기
   local layers = sprite.layers
-  local randCel = layers[3].cels
-  local image = randCel[1].image
-  local pixels = image:pixels()
+  local cels = layers[1].cels
+  local image = cels[1].image
 
-  app.alert(string.format("%d : %d", image.height, image.width))
+  -- 이미지 범위는 0부터 시작한다
+
+  --테이블 생성
+  local pxTable = {}
+  for i in image:pixels() do
+    local px = i()
+    table.insert(pxTable, px)
+  end
+
+  local pxc = app.pixelColor
+
+  --새 테이블 생성
+  for i = 0, image.height - 1 do
+    --전치행렬; 각 행의 첫 번째 요소를 열에 나열한다.
+    for j = 0, image.width - 1 do
+      local idx = (j * image.width) + i + 1
+      image:drawPixel(j, i, pxTable[idx])
+    end
+  end
+
+  -- app.alert(string.format("%d, %d, %d, %d", red, grn, blu, alp))
+
 end
 
 function inverse()
