@@ -28,7 +28,7 @@ function Mat4ase(sprite)
   }
 
   local layers = sprite.layers
-  checked_cels = {}
+  local checked_cels = {}
 
   for i = #layers, 1, -1 do
     local name = layers[i].name
@@ -88,15 +88,14 @@ function Mat4ase(sprite)
 end
 
 function Transpose(cels)
-  for key, value in pairs(cels) do
+  for _, value in pairs(cels) do
     local image = value.image
-    app.alert(string.format("%d : %d", image.height, image.width))
     local newImage = Image(image.height, image.width, image.colorMode)
     
     for i = 0, image.height - 1 do
       for j = 0, image.width - 1 do
-        local px = image:getPixel(i, j)
-        newImage:drawPixel(j, i, px)
+        local px = image:getPixel(j, i)
+        newImage:drawPixel(i, j, px)
       end
     end
   
