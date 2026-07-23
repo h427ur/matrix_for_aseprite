@@ -2,16 +2,16 @@
 ## overview
 It's a plugin that transposes the height and width of pixels in Aseprite.
 
-## How to use
+## How to use with preview
 1. click the Edit menu.
 2. click the [Matrix for Aseprite]
 3. check the box for the cel you want to transpose.
 4. press Transpose button
 5. cel transposed!
 
-## How to install
+![preview](./preview.webp)
 
-### for macOS & Linux distro User
+## How to install
 ```
 git clone https://gitlab.com/h427ur/matrix_for_aseprite
 cd matrix_for_aseprite
