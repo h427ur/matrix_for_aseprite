@@ -26,9 +26,7 @@ function Mat4ase(sprite)
   }
 
   local layers = sprite.layers
-  local checked_cels = {}
-
-  GenerateCheckbox(dlg, layers)
+  local checked_cels = GenerateCheckbox(dlg, layers)
   
   dlg:button{
     id = "getSize",
@@ -75,58 +73,46 @@ end
 function Inverse()
 end
 
-function GenerateCheckbox(dlg, layers)
-  -- 내부에서 테이블을 선언하고, 반환하기
-  local checked_cels = {}
+function GenerateCheckbox(dlg, layers, checked_cels, path)
+  checked_cels = checked_cels or {}
+  path = path or  ""
 
   for i = #layers, 1, -1 do
-    local name = layers[i].name
+    local layer = layers[i]
+    local name = layer.name
+    local cur_path = path .. "_" .. name
 
     dlg:label{
-      id = string.format("layer_%s%02d", name, i),
-      label = name,
+      id = string.format("layer_%s%02d", cur_path, i),
+      label = name
     }
 
     --레이어가 그룹으로 이루어져있다면 재귀 호출한 후, 건너뛰기
-    if layers[i].isGroup then
+    if layer.isGroup then
       -- 딕셔너리 병합
-      local cels = GenerateCheckbox(dlg, layers[i].layers)
-      checked_cels = MergeDict(checked_cels, cels)
-      goto continue
-    --아니면 그대로 진행
-    end
-
-    for j = 1, #layers[i].cels do
-      local identifier = string.format("cel_%s%02d", name, j)
-      
-      dlg:check{
-        id = identifier,
-        selected = false,
-        onclick = function()
-          local data = dlg.data
-          local cel = layers[i].cels[j]
-
-          if data[identifier] then
-            checked_cels[identifier] = cel
-          else
-            checked_cels[identifier] = nil
+      GenerateCheckbox(dlg, layer.layers, checked_cels, cur_path)
+    else  
+      for j, cel in ipairs(layer.cels) do
+        local identifier = string.format("cel_%s%02d", cur_path, j)
+        
+        dlg:check{
+          id = identifier,
+          selected = false,
+          onclick = function()          
+            if dlg.data[identifier] then
+              checked_cels[identifier] = cel
+            else
+              checked_cels[identifier] = nil
+            end
           end
-        end
-      }
+        }
+      end
+      
     end
 
-    ::continue::
   end
   
   return checked_cels
-end
-
-function MergeDict(t1, t2)
-    for k, v in pairs(t2) do 
-      t1[k] = v
-    end
-    
-    return t1
 end
 
 function exit(plugin)
