@@ -8,7 +8,7 @@ function init(plugin)
     title="Matrix for Aseprite",
     group="edit_transform",
     onclick = function()
-      Mat4ase(app.sprite)
+      matase(app.sprite)
 
     end,
     onenabled = function()
@@ -19,17 +19,17 @@ function init(plugin)
 
 end
 
-function Mat4ase(sprite)
+function matase(sprite)
   local dlg = Dialog{
     title = "Matrix for Aseprite",
     resizeable = false
   }
 
   local layers = sprite.layers
-  local checked_cels = GenerateCheckbox(dlg, layers)
+  local checked_cels = gen_checkbox(dlg, layers)
   
   dlg:button{
-    id = "getSize",
+    id = "get_size",
     text = "Show canvas size",
     onclick = function()
       local row, column = sprite.height, sprite.width
@@ -39,10 +39,19 @@ function Mat4ase(sprite)
   }
   
   dlg:button{
-    id = "tPose",
+    id = "transpose",
     text = "Transpose",
     onclick = function()
-      Transpose(checked_cels)
+      tpose(checked_cels)
+    end
+  }
+
+  
+  dlg:button{
+    id = "inverse",
+    text = "Inverse",
+    onclick = function()
+      inverse(checked_cels)
     end
   }
 
@@ -52,28 +61,40 @@ function Mat4ase(sprite)
 
 end
 
-function Transpose(cels)
-  for _, value in pairs(cels) do
-    local image = value.image
-    local newImage = Image(image.height, image.width, image.colorMode)
+function tpose(cels)
+  for _, val in pairs(cels) do
+    local img = val.image
+    local newimg = Image(img.height, img.width, img.colorMode)
     
-    for i = 0, image.height - 1 do
-      for j = 0, image.width - 1 do
-        local px = image:getPixel(j, i)
-        newImage:drawPixel(i, j, px)
+    for i = 0, img.height - 1 do
+      for j = 0, img.width - 1 do
+        local px = img:getPixel(j, i)
+        newimg:drawPixel(i, j, px)
       end
     end
   
-    value.image = newImage
+    val.image = newimg
     
   end
 
 end
 
-function Inverse()
+function inverse(cels)
+  for _, val in pairs(cels) do
+    local img = val.image
+    local name = val.layer.name
+
+    if img.width ~= img.height then
+      local errmsg = string.format("This cel of [%s] must be square(%d : %d)", name, img.width, img.height)
+      app.alert(errmsg)
+    else
+      app.alert("this function is not complete yet")
+    end
+
+  end
 end
 
-function GenerateCheckbox(dlg, layers, checked_cels, path)
+function gen_checkbox(dlg, layers, checked_cels, path)
   checked_cels = checked_cels or {}
   path = path or  ""
 
@@ -87,10 +108,8 @@ function GenerateCheckbox(dlg, layers, checked_cels, path)
       label = name
     }
 
-    --레이어가 그룹으로 이루어져있다면 재귀 호출한 후, 건너뛰기
     if layer.isGroup then
-      -- 딕셔너리 병합
-      GenerateCheckbox(dlg, layer.layers, checked_cels, cur_path)
+      gen_checkbox(dlg, layer.layers, checked_cels, cur_path)
     else  
       for j, cel in ipairs(layer.cels) do
         local identifier = string.format("cel_%s%02d", cur_path, j)
@@ -106,6 +125,7 @@ function GenerateCheckbox(dlg, layers, checked_cels, path)
             end
           end
         }
+        
       end
       
     end
