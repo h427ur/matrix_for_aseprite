@@ -1,8 +1,8 @@
 {
-  "name": "matrix-for-aseprite",
+  "name": "matrix_for_aseprite",
   "displayName": "Matrix for Aseprite",
-  "description": "Transpose or inverse canvas",
-  "version": "0.1.11",
+  "description": "Transpose or inverse a pixel arts",
+  "version": "0.1.13",
   "author": { 
     "name": "h427ur",
     "email": "h427ur@outlook.com",
