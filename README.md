@@ -13,7 +13,7 @@ It's a plugin that transposes the height and width of pixels in Aseprite.
 
 ## How to install
 ```
-git clone https://gitlab.com/h427ur/matrix_for_aseprite
+git clone https://github.com/h427ur/matrix_for_aseprite
 cd matrix_for_aseprite
 bash ./install.sh
 ```
