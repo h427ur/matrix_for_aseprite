@@ -1,6 +1,10 @@
 ﻿.DS_Store
 .vscode/*
 .vscode/
+.gram/*
+.gram/
+.zed/*
+.zed/
 .idea/*
 .idea/
 .vs/*
