@@ -68,7 +68,7 @@ end
 function togray(cels)
     for _, val in pairs(cels) do
         local img = val.image
-        local newimg = img:clone()
+        local newimg = Image(img.width, img.height)
 
         for i = 0, img.height - 1 do
             for j = 0, img.width - 1 do
@@ -78,16 +78,15 @@ function togray(cels)
                 local blu = app.pixelColor.rgbaB(px)
                 local alpha = app.pixelColor.rgbaA(px)
 
-                if alpha ~= 0 then
-                    --app.alert(red, grn, blu)
-                    local gray = ((red + grn + blu) / 3) -- 값이 0으로 나옴
-                    local newpx = app.pixelColor.rgba(gray, gray, gray)
-                    newimg:drawPixel(j, i, newpx)
-                end
+                local gray = ((red + grn + blu) / 3)
+                --app.alert(string.format("red: %d grn: %d blu: %d alpha: %d gray: %d", red, grn, blu, alpha, gray))
+                local newpx = app.pixelColor.rgba(gray, gray, gray, alpha)
+                newimg:drawPixel(j, i, newpx)
+
             end
         end
 
-        img = newimg
+        val.image = newimg
     end
 end
 
